@@ -5,7 +5,7 @@ Awesome WM ZoidQC Theme
 Themes for Awesome WM 4.x
 -------------------------
 
-Gallery
+Screenshot
 =======
 
 .. image:: http://i.imgur.com/47gaB88.jpg
