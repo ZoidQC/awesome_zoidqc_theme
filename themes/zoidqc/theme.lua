@@ -108,7 +108,7 @@ theme.volume = lain.widget.alsa({
         vlevel  = volume_now.level
 
         if volume_now.status == "off" then
-            vlevel = vlevel .. "Off"
+            vlevel = "Off"
         else
             vlevel = vlevel .. "%"
         end
