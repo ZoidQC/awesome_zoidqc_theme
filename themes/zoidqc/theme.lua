@@ -71,7 +71,7 @@ theme.titlebar_maximized_button_focus_inactive  = theme.default_dir.."/titlebar/
 theme.titlebar_maximized_button_normal_active   = theme.default_dir.."/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/maximized_focus_active.png"
 
-awful.util.tagnames   = { "  ", "  ", "  ", "  ", "  ", "  " }
+awful.util.tagnames   = { "", "", "", "", "", "" }
 
 local markup = lain.util.markup
 local space3 = markup.font("Roboto 3", " ")
@@ -81,7 +81,7 @@ local mytextclock = wibox.widget.textclock(markup("#FFFFFF", space3 .. "%b %d %H
 mytextclock.font = theme.font
 local clock_icon = wibox.widget.imagebox(theme.clock)
 local clockbg = wibox.container.background(mytextclock, theme.bg_focus, gears.shape.rectangle)
-local clockwidget = wibox.container.margin(clockbg, 0, 0, 5, 5)
+local clockwidget = wibox.container.margin(clockbg, 0, 0, 2, 5)
 
 lain.widget.calendar({
     attach_to = { mytextclock },
@@ -108,7 +108,7 @@ theme.volume = lain.widget.alsa({
         vlevel  = volume_now.level
 
         if volume_now.status == "off" then
-            vlevel = vlevel .. "Off"
+            vlevel = "Off"
         else
             vlevel = vlevel .. "%"
         end
@@ -117,7 +117,7 @@ theme.volume = lain.widget.alsa({
     end
 })
 local volumewidget = wibox.container.background(theme.volume.widget, theme.bg_focus, gears.shape.rectangle)
-volumewidget = wibox.container.margin(volumewidget, 0, 5, 5, 5)
+volumewidget = wibox.container.margin(volumewidget, 0, 5, 2, 5)
 
 -- CPU
 local cpu_icon = wibox.widget.imagebox(theme.cpu)
@@ -128,7 +128,7 @@ local cpu = lain.widget.cpu({
     end
 })
 local cpubg = wibox.container.background(cpu.widget, theme.bg_focus, gears.shape.rectangle)
-local cpuwidget = wibox.container.margin(cpubg, 0, 0, 5, 5)
+local cpuwidget = wibox.container.margin(cpubg, 0, 0, 2, 5)
 
 -- Net
 local netdown_icon = wibox.widget.imagebox(theme.net_down)
@@ -140,7 +140,7 @@ local net = lain.widget.net({
     end
 })
 local netbg = wibox.container.background(net.widget, theme.bg_focus, gears.shape.rectangle)
-local networkwidget = wibox.container.margin(netbg, 0, 0, 5, 5)
+local networkwidget = wibox.container.margin(netbg, 0, 0, 2, 5)
 
 -- Weather
 theme.weather = lain.widget.weather({
@@ -175,6 +175,13 @@ function theme.at_screen_connect(s)
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[3])
 
+    -- awful.tag.add("", {
+    --     layout             = awful.layout.suit.tile,
+    --     icon               = theme.bar,
+    --     screen             = s,
+    --     layout             = awful.layout.layouts[3],
+    -- })
+
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
@@ -190,13 +197,13 @@ function theme.at_screen_connect(s)
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
 
     mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
-    s.mytag = wibox.container.margin(mytaglistcont, 0, 0, 5, 5)
+    s.mytag = wibox.container.margin(mytaglistcont, 10, 0, 2, 5)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.rectangle, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 45 })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 40 })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -207,7 +214,6 @@ function theme.at_screen_connect(s)
             spacing,
             s.mytag,
             spacing,
-            s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
